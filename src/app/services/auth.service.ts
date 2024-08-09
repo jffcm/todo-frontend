@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/v1/auth';
+  private readonly apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
   login(email: string, senha: string): Observable<any> {
-    const url = `${this.apiUrl}/login`;
+    const url = `${this.apiUrl}/auth/login`;
 
     const httpOptions = {
       headers: new HttpHeaders({

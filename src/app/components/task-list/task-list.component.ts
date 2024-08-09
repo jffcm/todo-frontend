@@ -41,7 +41,7 @@ export class TaskListComponent implements OnInit {
     }
     this.taskService.addTask(this.newTask).subscribe(() => {
       this.loadTasks();
-      this.newTask = { descricao: '', prioridade: 'Alta' }; // Resetar o formulário após adicionar
+      this.newTask = { descricao: '', prioridade: 'Alta' }; 
     });
   }
 }
