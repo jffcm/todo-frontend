@@ -1,0 +1,41 @@
+<div class="container mt-5">
+
+    <div class="card mb-4">
+        <div class="card-header">
+          <h2>Lista de Tarefas</h2>
+        </div>
+        <div class="card-body">
+          
+    <ul class="list-group">
+        <li *ngFor="let task of tasks" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ task.descricao }} ({{ task.prioridade }})</span>
+          <button class="btn btn-success" (click)="completeTask(task._id)">Concluir</button>
+        </li>
+      </ul>
+</div>
+    <div class="card mb-4">
+      <div class="card-header">
+        <h2>Cadastrar Nova Tarefa</h2>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="addTask()">
+          <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição:</label>
+            <input id="descricao" class="form-control" [(ngModel)]="newTask.descricao" name="descricao" required>
+          </div>
+          <div class="mb-3">
+            <label for="prioridade" class="form-label">Prioridade:</label>
+            <select id="prioridade" class="form-select" [(ngModel)]="newTask.prioridade" name="prioridade">
+              <option value="Alta">Alta</option>
+              <option value="Média">Média</option>
+              <option value="Baixa">Baixa</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+      </div>
+    </div>
+  
+    
+  </div>
+  
