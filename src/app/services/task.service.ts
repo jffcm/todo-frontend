@@ -5,12 +5,13 @@ import { catchError } from 'rxjs/operators';
 import { Task } from '../models/task.model';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TaskService {
-    private apiUrl = 'http://localhost:3000/api/v1/tarefas';
+    private readonly apiUrl = environment.apiUrl;
 
     constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
@@ -26,7 +27,6 @@ export class TaskService {
 
     private handleError(error: HttpErrorResponse): Observable<never> {
         if (error.status === 401) {
-            // Token inválido, redirecionar para a página de login
             this.authService.removeToken();
             this.router.navigate(['/login']);
         }
@@ -34,20 +34,22 @@ export class TaskService {
     }
 
     getTasks(): Observable<Task[]> {
-        return this.http.get<Task[]>(this.apiUrl, this.getHttpOptions()).pipe(
+        const url = `${this.apiUrl}/tarefas`
+        return this.http.get<Task[]>(url, this.getHttpOptions()).pipe(
             catchError(this.handleError.bind(this))
         );
     }
 
     completeTask(taskId: number): Observable<any> {
-        const url = `${this.apiUrl}/${taskId}/concluir`;
+        const url = `${this.apiUrl}/tarefas/${taskId}/concluir`;
         return this.http.put(url, {}, this.getHttpOptions()).pipe(
             catchError(this.handleError.bind(this))
         );
     }
 
     addTask(task: { descricao: string, prioridade: string }): Observable<any> {
-        return this.http.post(this.apiUrl, task, this.getHttpOptions()).pipe(
+        const url = `${this.apiUrl}/tarefas`
+        return this.http.post(url, task, this.getHttpOptions()).pipe(
             catchError(this.handleError.bind(this))
         );
     }

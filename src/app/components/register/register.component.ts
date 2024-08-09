@@ -28,7 +28,7 @@ export class RegisterComponent {
           this.successMessage = response.message;
           setTimeout(() => {
             this.router.navigate(['/login']);
-          }, 3000); // Redirecionar após 3 segundos
+          }, 3000); 
         } else {
           this.errorMessage = response.message;
         }
